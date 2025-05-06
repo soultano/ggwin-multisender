@@ -7,10 +7,17 @@
 </head>
 <body>
   <h1>GGWIN Multisender</h1>
-  <textarea id="addresses" rows="10" cols="60" placeholder="Адреса кошельков, по одному на строку"></textarea><br><br>
-  <button onclick="send()">Разослать 15,000 GGWIN</button>
-  <pre id="log"></pre>
 
-  <script src="main.js"></script>
+  <button id="connectWalletBtn">🔌 Подключить TON Кошелёк</button>
+  <p id="walletAddress"></p>
+
+  <textarea
+    id="wallets"
+    placeholder="Адреса кошельков, по одному на строку"
+  ></textarea>
+  <button id="sendBtn">Разослать 15,000 GGWIN</button>
+
+  <script src="main.js" type="module"></script>
 </body>
+
 </html>
