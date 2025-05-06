@@ -8,7 +8,7 @@
 <body>
   <h1>GGWIN Multisender</h1>
 
-  <button id="connectWalletBtn">🔌 Подключить TON Кошелёк</button>
+  <div id="connectWalletBtn"></div>
   <p id="walletAddress"></p>
 
   <textarea
@@ -18,6 +18,8 @@
   ></textarea>
   <button id="sendBtn">Разослать 15,000 GGWIN</button>
 
-  <script type="module" src="main.js"></script>
+  <!-- Подключаем SDK -->
+  <script src="https://unpkg.com/@tonconnect/ui/dist/tonconnect-ui.min.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
