@@ -7,8 +7,15 @@ const sendBtn = document.getElementById("sendBtn");
 const walletField = document.getElementById("wallets");
 const walletAddressDisplay = document.getElementById("walletAddress");
 
+// Показываем подключённый адрес
+tonConnect.onStatusChange(wallet => {
+  if (wallet?.account?.address) {
+    walletAddressDisplay.textContent = `Кошелёк: ${wallet.account.address}`;
+  }
+});
+
 sendBtn.addEventListener("click", async () => {
-  const wallet = await tonConnect.wallet;
+  const wallet = tonConnect.wallet;
   if (!wallet) {
     alert("Сначала подключи кошелёк");
     return;
@@ -20,12 +27,37 @@ sendBtn.addEventListener("click", async () => {
     return;
   }
 
-  console.log("Готов к рассылке на адреса:");
-  addresses.forEach(addr => console.log(addr));
-});
+  const fromAddress = wallet.account.address;
+  const jettonWallet = "UQAT4kuGQHPhVBw0htnonfELVeeB7t0ov08fJ8fwx8FZ9arZ"; // твой GGWIN кошелёк
 
-tonConnect.onStatusChange(wallet => {
-  if (wallet?.account?.address) {
-    walletAddressDisplay.textContent = `Кошелёк: ${wallet.account.address}`;
+  for (const toAddress of addresses) {
+    try {
+      const cell = TonConnectUI.beginCell()
+        .storeUint(0xf8a7ea5, 32)
+        .storeUint(0, 64)
+        .storeAddress(TonConnectUI.Address.parse(toAddress))
+        .storeAddress(TonConnectUI.Address.parse(fromAddress))
+        .storeCoins(TonConnectUI.toNano("15000"))
+        .storeAddress(null)
+        .storeUint(0, 1)
+        .storeCoins(0)
+        .storeAddress(null)
+        .endCell();
+
+      await tonConnect.sendTransaction({
+        validUntil: Math.floor(Date.now() / 1000) + 360,
+        messages: [
+          {
+            address: jettonWallet,
+            amount: TonConnectUI.toNano("0.05").toString(),
+            payload: cell.toBoc().toString("base64")
+          }
+        ]
+      });
+
+      console.log(`✅ Успешно отправлено на ${toAddress}`);
+    } catch (e) {
+      console.error(`❌ Ошибка на ${toAddress}:`, e);
+    }
   }
 });
