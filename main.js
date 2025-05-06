@@ -1,19 +1,35 @@
-const log = (msg) => {
-  document.getElementById('log').textContent += msg + '\n';
-};
+import { TonConnectUI } from "@tonconnect/ui";
 
-async function send() {
-  const raw = document.getElementById('addresses').value;
-  const addresses = raw.split('\n').map(s => s.trim()).filter(Boolean);
+const tonConnect = new TonConnectUI({
+  manifestUrl: "https://soultano.github.io/ggwin-multisender/tonconnect-manifest.json",
+  buttonRootId: "connectWalletBtn"
+});
 
-  for (const address of addresses) {
-    try {
-      log(`Отправка 15k GGWIN на ${address}...`);
-      // Тут пока заглушка — позже подключим API или смарт-контракт
-      await new Promise(resolve => setTimeout(resolve, 500));
-      log(`✅ Успешно`);
-    } catch (e) {
-      log(`❌ Ошибка: ${e.message}`);
-    }
+const sendBtn = document.getElementById("sendBtn");
+const walletField = document.getElementById("wallets");
+const walletAddressDisplay = document.getElementById("walletAddress");
+
+sendBtn.addEventListener("click", async () => {
+  const connectedWallet = await tonConnect.wallet;
+  if (!connectedWallet) {
+    alert("Сначала подключи кошелёк");
+    return;
   }
-}
+
+  const addresses = walletField.value.split("\n").map(a => a.trim()).filter(Boolean);
+  if (addresses.length === 0) {
+    alert("Вставь адреса получателей");
+    return;
+  }
+
+  // ⚠️ ВНИМАНИЕ: Здесь будет логика отправки — сейчас только выводим адреса
+  console.log("Отправим 15000 GGWIN на:");
+  addresses.forEach(addr => console.log(addr));
+});
+
+// Показываем подключённый адрес
+tonConnect.onStatusChange(wallet => {
+  if (wallet?.account?.address) {
+    walletAddressDisplay.textContent = `Кошелёк: ${wallet.account.address}`;
+  }
+});
