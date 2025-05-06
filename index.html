@@ -1,27 +1,25 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GGWIN Multisender</title>
+  <title>GGWIN Airdrop</title>
+
+  <!-- Подключение библиотеки TonConnect UI -->
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 </head>
 <body>
   <h1>GGWIN Multisender</h1>
 
-  <div id="connectWalletBtn"></div>
+  <button id="connectWalletBtn">🔌 Подключить TON Кошелёк</button>
   <p id="walletAddress"></p>
 
   <textarea
     id="wallets"
     placeholder="Адреса кошельков, по одному на строку"
-    rows="10" cols="50"
   ></textarea>
   <button id="sendBtn">Разослать 15,000 GGWIN</button>
 
-  <!-- ✅ Сначала библиотека -->
-  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
-
-  <!-- ✅ Потом уже наш JS -->
   <script src="main.js"></script>
 </body>
 </html>
