@@ -1,6 +1,4 @@
-import { TonConnectUI } from "https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js";
-
-const tonConnect = new TonConnectUI({
+const tonConnect = new TonConnectUI.TonConnectUI({
   manifestUrl: "https://soultano.github.io/ggwin-multisender/tonconnect-manifest.json",
   buttonRootId: "connectWalletBtn"
 });
