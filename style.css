@@ -1,0 +1,41 @@
+body {
+  font-family: sans-serif;
+  background: #f9f9f9;
+  padding: 30px;
+  max-width: 700px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  height: 200px;
+  font-size: 14px;
+  padding: 10px;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+#log {
+  background: #000;
+  color: #0f0;
+  padding: 10px;
+  height: 150px;
+  overflow: auto;
+  font-family: monospace;
+  font-size: 13px;
+  margin-top: 15px;
+}
