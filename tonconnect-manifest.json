@@ -1,0 +1,9 @@
+{
+  "manifest_version": "1",
+  "name": "GGWIN Multisender",
+  "description": "Массовая отправка GGWIN токенов",
+  "url": "https://soultano.github.io/ggwin-multisender/",
+  "icons": ["favicon.ico"],
+  "bridge_url": "https://bridge.tonapi.io/bridge",
+  "version": "0.0.1"
+}
