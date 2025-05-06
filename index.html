@@ -1,22 +1,77 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>GGWIN Multisender</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GGWIN Multisender</title>
 
-    <script type="module" src="https://unpkg.com/@tonconnect/ui@latest"></script>
-    <script type="module" src="https://unpkg.com/@ton/core@latest"></script>
+  <!-- Подключаем стабильную версию UI -->
+  <script src="https://unpkg.com/@tonconnect/ui@0.0.1-beta.20/dist/tonconnect-ui.min.js"></script>
+
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    textarea { width: 100%; height: 120px; margin-bottom: 10px; }
+    button { padding: 10px 15px; margin-top: 5px; }
+    #walletAddress { margin-top: 10px; font-weight: bold; }
+  </style>
 </head>
 <body>
-    <h1>GGWIN Multisender</h1>
+  <h1>GGWIN Multisender</h1>
 
-    <button id="connectWalletBtn">🔌 Подключить TON Кошелёк</button>
-    <p id="walletAddress"></p>
+  <button id="connectWalletBtn">🔌 Подключить TON Кошелёк</button>
+  <p id="walletAddress">Кошелёк не подключён</p>
 
-    <textarea id="wallets" placeholder="Адреса кошельков, по одному на строку"></textarea>
-    <button id="sendBtn">Разослать 15,000 GGWIN</button>
+  <textarea id="wallets" placeholder="Адреса получателей, по одному на строку"></textarea>
+  <button id="sendBtn">Разослать 0.01 TON</button>
 
-    <script src="main.js"></script>
+  <script>
+    const tonConnect = new TonConnectUI.TonConnectUI({
+      manifestUrl: "https://soultano.github.io/ggwin-multisender/tonconnect-manifest.json",
+      buttonRootId: "connectWalletBtn"
+    });
+
+    const walletField = document.getElementById("wallets");
+    const sendBtn = document.getElementById("sendBtn");
+    const walletAddressDisplay = document.getElementById("walletAddress");
+
+    tonConnect.onStatusChange(wallet => {
+      if (wallet?.account?.address) {
+        walletAddressDisplay.textContent = `Кошелёк: ${wallet.account.address}`;
+      } else {
+        walletAddressDisplay.textContent = "Кошелёк не подключён";
+      }
+    });
+
+    sendBtn.addEventListener("click", async () => {
+      const wallet = tonConnect.wallet;
+      if (!wallet) {
+        alert("Сначала подключи кошелёк!");
+        return;
+      }
+
+      const addresses = walletField.value.split("\n").map(a => a.trim()).filter(Boolean);
+      if (addresses.length === 0) {
+        alert("Вставь адреса получателей!");
+        return;
+      }
+
+      for (const to of addresses) {
+        try {
+          await tonConnect.sendTransaction({
+            validUntil: Math.floor(Date.now() / 1000) + 300,
+            messages: [
+              {
+                address: to,
+                amount: "10000000" // 0.01 TON (в nanotons)
+              }
+            ]
+          });
+          console.log(`✅ Отправлено на ${to}`);
+        } catch (e) {
+          console.error(`❌ Ошибка на ${to}:`, e);
+        }
+      }
+    });
+  </script>
 </body>
 </html>
