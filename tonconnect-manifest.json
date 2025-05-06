@@ -1,8 +1,8 @@
 {
   "manifest_version": "0.0.1",
-  "name": "GGWIN Multisender",
-  "url": "https://soultano.github.io/ggwin-multisender",
-  "icon_url": "https://soultano.github.io/ggwin-multisender/icon.png",
-  "terms_of_use_url": "https://soultano.github.io/ggwin-multisender",
-  "privacy_policy_url": "https://soultano.github.io/ggwin-multisender"
+  "name": "GGWIN NFT Claim",
+  "url": "https://ggwin.life",
+  "icon_url": "https://ggwin.life/favicon.ico",
+  "terms_of_use_url": "https://ggwin.life",
+  "privacy_policy_url": "https://ggwin.life"
 }
