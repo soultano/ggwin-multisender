@@ -1,9 +1,8 @@
 {
-  "manifest_version": "1",
-  "name": "GGWIN Multisender",
-  "description": "Массовая отправка GGWIN токенов",
-  "url": "https://soultano.github.io/ggwin-multisender/",
-  "icons": ["favicon.ico"],
-  "bridge_url": "https://bridge.tonapi.io/bridge",
-  "version": "0.0.1"
+  "manifest_version": "0.0.1",
+  "name": "GGWIN NFT Claim",
+  "url": "https://ggwin.life",
+  "icon_url": "https://ggwin.life/favicon.ico",
+  "terms_of_use_url": "https://ggwin.life",
+  "privacy_policy_url": "https://ggwin.life"
 }
